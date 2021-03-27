@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  marketdb:
+    container_name: marketdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  market.api:
+    container_name: market.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://marketdb:27017"
+    depends_on:
+      - marketdb
+    ports:
+      - "8000:80"

@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  marketdb:
+    image: mongo
+
+  market.api:
+    image: ${DOCKER_REGISTRY-}marketapi
+    build:
+      context: .
+      dockerfile: Services/Market/Market.API/Dockerfile
+
+volumes:
+  mongo_data:
