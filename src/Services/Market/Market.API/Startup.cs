@@ -1,3 +1,5 @@
+using Market.API.Data;
+using Market.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +33,9 @@ namespace Market.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Market.API", Version = "v1" });
             });
+
+            services.AddScoped<IMarketContext, MarketContext>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
