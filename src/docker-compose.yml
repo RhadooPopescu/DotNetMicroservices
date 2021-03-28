@@ -4,11 +4,20 @@ services:
   marketdb:
     image: mongo
 
+  basketdb:
+    image: redis:alpine
+
   market.api:
     image: ${DOCKER_REGISTRY-}marketapi
     build:
       context: .
       dockerfile: Services/Market/Market.API/Dockerfile
+
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.API/Dockerfile
 
 volumes:
   mongo_data:
