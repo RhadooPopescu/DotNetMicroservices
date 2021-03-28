@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ordering.Application.Features.Queries.GetOrderList
+namespace Ordering.Application.Features.Orders.Queries.GetOrdersList
 {
-    class OrdersVm
+    public class OrdersVm
     {
-        //user info
+        //user details
         public int Id { get; set; }
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }
