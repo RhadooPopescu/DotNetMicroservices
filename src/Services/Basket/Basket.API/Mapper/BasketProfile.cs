@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Basket.API.Mapper
 {
-    public class BasketProfile : Profile
+    public  class BasketProfile : Profile
     {
         public BasketProfile()
         {
