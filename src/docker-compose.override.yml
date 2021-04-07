@@ -28,8 +28,8 @@ services:
     container_name: rabbitmq
     restart: always
     ports:
-        - "5672:5672"
-        - "15672:15672"
+      - "5672:5672"
+      - "15672:15672"
 
   portainer:
     container_name: portainer
@@ -79,8 +79,22 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
-        - market.api
-        - basket.api
-        - ordering.api
+      - market.api
+      - basket.api
+      - ordering.api
     ports:
       - "8010:80"
+
+  shopping.aggregator:
+    container_name: shopping.aggregator
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:MarketUrl=http://market.api"
+      - "ApiSettings:BasketUrl=http://basket.api"
+      - "ApiSettings:OrderingUrl=http://ordering.api"
+    depends_on:
+      - market.api
+      - basket.api
+      - ordering.api
+    ports:
+      - "8003:80"
