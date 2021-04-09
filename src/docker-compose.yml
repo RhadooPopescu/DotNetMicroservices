@@ -46,9 +46,16 @@ services:
       context: .
       dockerfile: ApiGateway/Shopping.Aggregator/Dockerfile
 
+  webclient:
+    image: ${DOCKER_REGISTRY-}webclient
+    build:
+      context: .
+      dockerfile: WebApplication/WebClient/Dockerfile
+
 volumes:
   mongo_data:
   portainer_data:
+
 
 
 
