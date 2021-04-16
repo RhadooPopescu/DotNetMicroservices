@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WebClient.Extensions;
@@ -10,34 +9,34 @@ namespace WebClient.Services
 {
     public class MarketService : IMarketService
     {
-        private readonly HttpClient _client;
+        private readonly HttpClient client;
 
         public MarketService(HttpClient client)
         {
-            _client = client ?? throw new ArgumentNullException(nameof(client));
+            this.client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
         public async Task<IEnumerable<MarketModel>> GetMarket()
         {
-            var response = await _client.GetAsync("/Market");
+            HttpResponseMessage response = await client.GetAsync("/Market");
             return await response.ReadContentAs<List<MarketModel>>();
         }
 
         public async Task<MarketModel> GetMarket(string id)
         {
-            var response = await _client.GetAsync($"/Market/{id}");
+            HttpResponseMessage response = await client.GetAsync($"/Market/{id}");
             return await response.ReadContentAs<MarketModel>();
         }
 
         public async Task<IEnumerable<MarketModel>> GetMarketByCategory(string category)
         {
-            var response = await _client.GetAsync($"/Market/GetProductByCategory/{category}");
+            HttpResponseMessage response = await client.GetAsync($"/Market/GetProductByCategory/{category}");
             return await response.ReadContentAs<List<MarketModel>>();
         }
 
         public async Task<MarketModel> CreateMarket(MarketModel model)
         {
-            var response = await _client.PostAsJson($"/Market", model);
+            HttpResponseMessage response = await client.PostAsJson($"/Market", model);
             if (response.IsSuccessStatusCode)
                 return await response.ReadContentAs<MarketModel>();
             else

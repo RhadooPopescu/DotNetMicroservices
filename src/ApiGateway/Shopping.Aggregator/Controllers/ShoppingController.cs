@@ -11,15 +11,15 @@ namespace Shopping.Aggregator.Controllers
     [Route("api/v1/[controller]")]
     public class ShoppingController : ControllerBase
     {
-        private readonly IMarketService _marketService;
-        private readonly IBasketService _basketService;
-        private readonly IOrderService _orderService;
+        private readonly IMarketService marketService;
+        private readonly IBasketService basketService;
+        private readonly IOrderService orderService;
 
         public ShoppingController(IMarketService marketService, IBasketService basketService, IOrderService orderService)
         {
-            _marketService = marketService ?? throw new ArgumentNullException(nameof(marketService));
-            _basketService = basketService ?? throw new ArgumentNullException(nameof(basketService));
-            _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+            this.marketService = marketService ?? throw new ArgumentNullException(nameof(marketService));
+            this.basketService = basketService ?? throw new ArgumentNullException(nameof(basketService));
+            this.orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
         }
 
 
@@ -33,11 +33,11 @@ namespace Shopping.Aggregator.Controllers
             //cosume orderin microservices in order to retrieve order list
             //return ShoppingModel dto class which includes all responses
 
-            var basket = await _basketService.GetBasket(userName);
+            BasketModel basket = await basketService.GetBasket(userName);
 
-            foreach (var item in basket.Items)
+            foreach (BasketItemExtendedModel item in basket.Items)
             {
-                var product = await _marketService.GetMarket(item.ProductId);
+                MarketModel product = await marketService.GetMarket(item.ProductId);
 
                 // set additional product fields
                 item.ProductName = product.Name;
@@ -47,9 +47,9 @@ namespace Shopping.Aggregator.Controllers
                 item.ImageFile = product.ImageFile;
             }
 
-            var orders = await _orderService.GetOrdersByUserName(userName);
+            var orders = await orderService.GetOrdersByUserName(userName);
 
-            var shoppingModel = new ShoppingModel
+            ShoppingModel shoppingModel = new ShoppingModel
             {
                 UserName = userName,
                 BasketWithProducts = basket,

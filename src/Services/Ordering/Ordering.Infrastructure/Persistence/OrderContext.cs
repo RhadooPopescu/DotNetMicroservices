@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Ordering.Domain.Common;
 using Ordering.Domain.Entities;
 using System;
@@ -17,7 +18,7 @@ namespace Ordering.Infrastructure.Persistence
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (var entry in ChangeTracker.Entries<EntityBase>())
+            foreach (EntityEntry<EntityBase> entry in ChangeTracker.Entries<EntityBase>())
             {
                 switch (entry.State)
                 {

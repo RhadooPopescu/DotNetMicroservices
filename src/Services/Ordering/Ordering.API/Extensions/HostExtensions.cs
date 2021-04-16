@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Polly;
+using Polly.Retry;
 using System;
 
 namespace Ordering.API.Extensions
@@ -12,17 +13,17 @@ namespace Ordering.API.Extensions
     {
         public static IHost MigrateDatabase<TContext>(this IHost host, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
         {
-            using (var scope = host.Services.CreateScope())
+            using (IServiceScope scope = host.Services.CreateScope())
             {
-                var services = scope.ServiceProvider;
-                var logger = services.GetRequiredService<ILogger<TContext>>();
-                var context = services.GetService<TContext>();
+                IServiceProvider services = scope.ServiceProvider;
+                ILogger logger = services.GetRequiredService<ILogger<TContext>>();
+                TContext context = services.GetService<TContext>();
 
                 try
                 {
                     logger.LogInformation("Migrating database associated with context {DbContextName}", typeof(TContext).Name);
 
-                    var retry = Policy.Handle<SqlException>()
+                    RetryPolicy retry = Policy.Handle<SqlException>()
                             .WaitAndRetry(
                                 retryCount: 5,
                                 sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), // 2,4,8,16,32 sc

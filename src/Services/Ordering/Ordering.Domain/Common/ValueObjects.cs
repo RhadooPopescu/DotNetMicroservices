@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ordering.Domain.Common
 {
@@ -33,7 +31,7 @@ namespace Ordering.Domain.Common
                 return false;
             }
 
-            var other = (ValueObject)obj;
+            ValueObject other = (ValueObject)obj;
             return GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
         }
 

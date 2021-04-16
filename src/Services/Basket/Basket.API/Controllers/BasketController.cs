@@ -15,16 +15,16 @@ namespace Basket.API.Controllers
     public class BasketController : ControllerBase
     {
         //fields
-        private readonly IBasketRepository _repository;
-        private readonly IMapper _mapper;
-        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IBasketRepository repository;
+        private readonly IMapper mapper;
+        private readonly IPublishEndpoint publishEndpoint;
 
         //constructor
         public BasketController(IBasketRepository repository, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
+            this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            this.publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
 
@@ -35,7 +35,7 @@ namespace Basket.API.Controllers
         [ProducesResponseType(typeof(ShoppingBasket), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingBasket>> GetBasket(string userName)
         {
-            var basket = await _repository.GetBasket(userName);
+            ShoppingBasket basket = await repository.GetBasket(userName);
             return Ok(basket ?? new ShoppingBasket(userName));
         }
 
@@ -44,7 +44,7 @@ namespace Basket.API.Controllers
         [ProducesResponseType(typeof(ShoppingBasket), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingBasket>> UpdateBasket([FromBody] ShoppingBasket basket)
         {
-            return Ok(await _repository.UpdateBasket(basket));
+            return Ok(await repository.UpdateBasket(basket));
         }
 
         //delete basket method
@@ -52,7 +52,7 @@ namespace Basket.API.Controllers
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteBasket(string userName)
         {
-            await _repository.DeleteBasket(userName);
+            await repository.DeleteBasket(userName);
             return Ok();
         }
 
@@ -70,19 +70,19 @@ namespace Basket.API.Controllers
             // remove the basket
 
             // get existing basket with total price
-            var basket = await _repository.GetBasket(basketCheckout.UserName);
+            ShoppingBasket basket = await repository.GetBasket(basketCheckout.UserName);
             if (basket == null)
             {
                 return BadRequest();
             }
 
             // send checkout event to rabbitmq
-            var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
+            BasketCheckoutEvent eventMessage = mapper.Map<BasketCheckoutEvent>(basketCheckout);
             eventMessage.TotalPrice = basket.TotalPrice;
-            await _publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
+            await publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
 
             // remove the basket
-            await _repository.DeleteBasket(basket.UserName);
+            await repository.DeleteBasket(basket.UserName);
 
             return Accepted();
         }
