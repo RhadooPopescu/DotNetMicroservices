@@ -27,7 +27,7 @@ namespace WebClient.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAddToBasketAsync(string productId)
+        public async Task<IActionResult> OnPostAddToCartAsync(string productId)
         {
             var product = await _marketService.GetMarket(productId);
 
