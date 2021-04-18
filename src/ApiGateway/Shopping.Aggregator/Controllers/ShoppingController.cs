@@ -2,6 +2,7 @@
 using Shopping.Aggregator.Models;
 using Shopping.Aggregator.Services;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -35,9 +36,13 @@ namespace Shopping.Aggregator.Controllers
 
             BasketModel basket = await basketService.GetBasket(userName);
 
-            foreach (BasketItemExtendedModel item in basket.Items)
+            List<BasketItemExtendedModel> basketItems = basket.Items; 
+
+            foreach (BasketItemExtendedModel item in basketItems)
             {
-                MarketModel product = await marketService.GetMarket(item.ProductId);
+                string currentProductId = item.ProductId;
+
+                MarketModel product = await marketService.GetMarket(currentProductId);
 
                 // set additional product fields
                 item.ProductName = product.Name;

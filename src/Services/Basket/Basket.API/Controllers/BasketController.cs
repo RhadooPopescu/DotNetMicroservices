@@ -69,8 +69,9 @@ namespace Basket.API.Controllers
             // send checkout event to rabbitmq
             // remove the basket
 
+            string basketCheckoutUserName = basketCheckout.UserName;
             // get existing basket with total price
-            ShoppingBasket basket = await repository.GetBasket(basketCheckout.UserName);
+            ShoppingBasket basket = await repository.GetBasket(basketCheckoutUserName);
             if (basket == null)
             {
                 return BadRequest();
@@ -82,7 +83,8 @@ namespace Basket.API.Controllers
             await publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
 
             // remove the basket
-            await repository.DeleteBasket(basket.UserName);
+            string basketUserName = basket.UserName;
+            await repository.DeleteBasket(basketUserName);
 
             return Accepted();
         }

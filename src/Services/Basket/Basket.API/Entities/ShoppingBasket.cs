@@ -4,7 +4,7 @@ namespace Basket.API.Entities
 {
     public class ShoppingBasket
     {
-        //fields
+        //properties
         public string UserName { get; set; }
         public List<ShoppingBasketItem> Items { get; set; } = new List<ShoppingBasketItem>();
 
@@ -23,7 +23,7 @@ namespace Basket.API.Entities
             get
             {
                 decimal totalprice = 0;
-                foreach (var item in Items)
+                foreach (ShoppingBasketItem item in Items)
                 {
                     totalprice += item.Price * item.Quantity;
                 }

@@ -24,7 +24,9 @@ namespace Ordering.API.EventBusConsumer
 
         public async Task Consume(ConsumeContext<BasketCheckoutEvent> context)
         {
-            CheckoutOrderCommand command = mapper.Map<CheckoutOrderCommand>(context.Message);
+            BasketCheckoutEvent contextMessage = context.Message;
+
+            CheckoutOrderCommand command = mapper.Map<CheckoutOrderCommand>(contextMessage);
             int result = await mediator.Send(command);
 
             logger.LogInformation("BasketCheckoutEvent consumed successfully. Created Order Id : {newOrderId}", result);

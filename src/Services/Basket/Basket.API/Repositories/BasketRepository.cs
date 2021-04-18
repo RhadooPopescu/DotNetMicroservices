@@ -27,9 +27,11 @@ namespace Basket.API.Repositories
 
         public async Task<ShoppingBasket> UpdateBasket(ShoppingBasket basket)
         {
-            await redisCache.SetStringAsync(basket.UserName, JsonConvert.SerializeObject(basket));
+            string basketUserName = basket.UserName;
 
-            return await GetBasket(basket.UserName);
+            await redisCache.SetStringAsync(basketUserName, JsonConvert.SerializeObject(basket));
+
+            return await GetBasket(basketUserName);
         }
 
         public async Task DeleteBasket(string userName)

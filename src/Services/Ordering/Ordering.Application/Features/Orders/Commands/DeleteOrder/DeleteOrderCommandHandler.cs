@@ -25,16 +25,20 @@ namespace Ordering.Application.Features.Orders.Commands.DeleteOrder
 
         public async Task<Unit> Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
         {
-            Order orderToDelete = await orderRepository.GetByIdAsync(request.Id);
+            int requestId = request.Id;
+            
+            Order orderToDelete = await orderRepository.GetByIdAsync(requestId);
+            int orderToDeleteId = orderToDelete.Id;
+
             if (orderToDelete == null)
             {
                 //_logger.LogError("Order not found in the database.");
-                throw new NotFoundException(nameof(Order), request.Id);
+                throw new NotFoundException(nameof(Order), requestId);
             }
 
             await orderRepository.DeleteAsync(orderToDelete);
 
-            logger.LogInformation($"Order {orderToDelete.Id} was successfully deleted.");
+            logger.LogInformation($"Order {orderToDeleteId} was successfully deleted.");
 
             return Unit.Value;
         }

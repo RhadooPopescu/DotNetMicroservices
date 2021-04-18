@@ -25,18 +25,22 @@ namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
 
         public async Task<Unit> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
-            Order orderToUpdate = await orderRepository.GetByIdAsync(request.Id);
+            int requestId = request.Id;
+
+            Order orderToUpdate = await orderRepository.GetByIdAsync(requestId);
+            int orderToUpdateId = orderToUpdate.Id;
+
             if (orderToUpdate == null)
             {
                 //_logger.LogError("Order not found in the database.");
-                throw new NotFoundException(nameof(Order), request.Id);
+                throw new NotFoundException(nameof(Order), requestId);
             }
 
             mapper.Map(request, orderToUpdate, typeof(UpdateOrderCommand), typeof(Order));
 
             await orderRepository.UpdateAsync(orderToUpdate);
 
-            logger.LogInformation($"Order {orderToUpdate.Id} was successfully updated.");
+            logger.LogInformation($"Order {orderToUpdateId} was successfully updated.");
 
             return Unit.Value;
         }
