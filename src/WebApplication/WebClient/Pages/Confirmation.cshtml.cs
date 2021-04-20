@@ -8,12 +8,12 @@ namespace WebClient.Pages
 
         public void OnGetContact()
         {
-            Message = "Your email was sent.";
+            Message = "Your email was sent successfully.";
         }
 
         public void OnGetOrderSubmitted()
         {
-            Message = "Your order submitted successfully.";
+            Message = "Your order was submitted successfully.";
         }
     }
 }

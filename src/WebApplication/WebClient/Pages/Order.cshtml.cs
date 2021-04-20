@@ -11,18 +11,18 @@ namespace WebClient.Pages
 {
     public class OrderModel : PageModel
     {
-        private readonly IOrderService _orderService;
+        private readonly IOrderService orderService;
 
         public OrderModel(IOrderService orderService)
         {
-            _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+            this.orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
         }
 
         public IEnumerable<OrderResponseModel> Orders { get; set; } = new List<OrderResponseModel>();
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Orders = await _orderService.GetOrdersByUserName("rdu");
+            Orders = await orderService.GetOrdersByUserName("rdu");
 
             return Page();
         }

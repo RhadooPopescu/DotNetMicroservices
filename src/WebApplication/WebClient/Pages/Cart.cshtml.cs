@@ -9,32 +9,32 @@ namespace WebClient.Pages
 {
     public class CartModel : PageModel
     {
-        private readonly IBasketService _basketService;
+        private readonly IBasketService basketService;
 
         public CartModel(IBasketService basketService)
         {
-            _basketService = basketService;
+            this.basketService = basketService;
         }
 
         public BasketModel Cart { get; set; } = new BasketModel();
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var userName = "rdu";
-            Cart = await _basketService.GetBasket(userName);
+            string userName = "rdu";
+            Cart = await basketService.GetBasket(userName);
 
             return Page();
         }
 
         public async Task<IActionResult> OnPostRemoveToCartAsync(string productId)
         {
-            var userName = "rdu";
-            var basket = await _basketService.GetBasket(userName);
+            string userName = "rdu";
+            BasketModel basket = await basketService.GetBasket(userName);
 
-            var item = basket.Items.Single(x => x.ProductId == productId);
+            BasketItemModel item = basket.Items.Single(x => x.ProductId == productId);
             basket.Items.Remove(item);
 
-            var basketUpdated = await _basketService.UpdateBasket(basket);
+            BasketModel basketUpdated = await basketService.UpdateBasket(basket);
 
             return RedirectToPage();
         }

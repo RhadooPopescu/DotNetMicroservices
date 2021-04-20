@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,13 +9,13 @@ namespace WebClient.Pages
 {
     public class ProductDetailModel : PageModel
     {
-        private readonly IMarketService _marketService;
-        private readonly IBasketService _basketService;
+        private readonly IMarketService marketService;
+        private readonly IBasketService basketService;
 
         public ProductDetailModel(IMarketService marketService, IBasketService basketService)
         {
-            _marketService = marketService ?? throw new ArgumentNullException(nameof(marketService));
-            _basketService = basketService ?? throw new ArgumentNullException(nameof(basketService));
+            this.marketService = marketService ?? throw new ArgumentNullException(nameof(marketService));
+            this.basketService = basketService ?? throw new ArgumentNullException(nameof(basketService));
         }
 
         public MarketModel Product { get; set; }
@@ -32,7 +30,7 @@ namespace WebClient.Pages
                 return NotFound();
             }
 
-            Product = await _marketService.GetMarket(productId);
+            Product = await marketService.GetMarket(productId);
             if (Product == null)
             {
                 return NotFound();
@@ -42,10 +40,10 @@ namespace WebClient.Pages
 
         public async Task<IActionResult> OnPostAddToCartAsync(string productId)
         {
-            var product = await _marketService.GetMarket(productId);
+            MarketModel product = await marketService.GetMarket(productId);
 
-            var userName = "rdu";
-            var basket = await _basketService.GetBasket(userName);
+            string userName = "rdu";
+            BasketModel basket = await basketService.GetBasket(userName);
 
             basket.Items.Add(new BasketItemModel
             {
@@ -55,7 +53,7 @@ namespace WebClient.Pages
                 Quantity = 1,
             });
 
-            var basketUpdated = await _basketService.UpdateBasket(basket);
+            BasketModel basketUpdated = await basketService.UpdateBasket(basket);
 
             return RedirectToPage("Cart");
         }

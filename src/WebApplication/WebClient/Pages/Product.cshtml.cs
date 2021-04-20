@@ -11,13 +11,13 @@ namespace WebClient.Pages
 {
     public class ProductModel : PageModel
     {
-        private readonly IMarketService _marketService;
-        private readonly IBasketService _basketService;
+        private readonly IMarketService marketService;
+        private readonly IBasketService basketService;
 
         public ProductModel(IMarketService marketService, IBasketService basketService)
         {
-            _marketService = marketService ?? throw new ArgumentNullException(nameof(marketService));
-            _basketService = basketService ?? throw new ArgumentNullException(nameof(basketService));
+            this.marketService = marketService ?? throw new ArgumentNullException(nameof(marketService));
+            this.basketService = basketService ?? throw new ArgumentNullException(nameof(basketService));
         }
 
         public IEnumerable<string> CategoryList { get; set; } = new List<string>();
@@ -29,7 +29,7 @@ namespace WebClient.Pages
 
         public async Task<IActionResult> OnGetAsync(string categoryName)
         {
-            var productList = await _marketService.GetMarket();
+            var productList = await marketService.GetMarket();
             CategoryList = productList.Select(p => p.Category).Distinct();
 
             if (!string.IsNullOrWhiteSpace(categoryName))
@@ -46,10 +46,10 @@ namespace WebClient.Pages
 
         public async Task<IActionResult> OnPostAddToCartAsync(string productId)
         {
-            var product = await _marketService.GetMarket(productId);
+            MarketModel product = await marketService.GetMarket(productId);
 
-            var userName = "rdu";
-            var basket = await _basketService.GetBasket(userName);
+            string userName = "rdu";
+            BasketModel basket = await basketService.GetBasket(userName);
 
             basket.Items.Add(new BasketItemModel
             {
@@ -59,7 +59,7 @@ namespace WebClient.Pages
                 Quantity = 1,
             });
 
-            var basketUpdated = await _basketService.UpdateBasket(basket);
+            BasketModel basketUpdated = await basketService.UpdateBasket(basket);
 
             return RedirectToPage("Cart");
         }
