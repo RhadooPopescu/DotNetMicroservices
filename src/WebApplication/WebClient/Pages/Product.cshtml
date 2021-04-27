@@ -10,7 +10,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a asp-page="Index">Home</a></li>
-                    <li class="breadcrumb-item"><a asp-page="Product">Category</a></li>
+                    <li class="breadcrumb-item"><a asp-page="Product">Market</a></li>
                     <li class="breadcrumb-item active" aria-current="page">@Model.SelectedCategory</li>
                 </ol>
             </nav>
@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-12 col-sm-3">
             <div class="card bg-light mb-3">
-                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
+                <div class="card-header bg-info text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
                 <ul class="list-group category_block">
 
                     @foreach (var category in Model.CategoryList)
@@ -33,9 +33,9 @@
             </div>
 
             <div class="card bg-light mb-3">
-                <div class="card-header bg-success text-white text-uppercase">Last product</div>
+                <div class="card-header bg-info text-white text-uppercase">Most recent product</div>
                 <div class="card-body">
-                    <img asp-append-version="true" class="img-fluid" src="~/images/product/@Model.ProductList.LastOrDefault().ImageFile" />
+                    <img asp-append-version="true" class="card-img-top" src="~/images/product/@Model.ProductList.LastOrDefault().ImageFile" />
                     <h5 class="card-title">@Model.ProductList.LastOrDefault().Name</h5>
                     <p class="card-text">@Model.ProductList.LastOrDefault().Summary</p>
                     <p class="bloc_left_price">@Model.ProductList.LastOrDefault().Price $</p>

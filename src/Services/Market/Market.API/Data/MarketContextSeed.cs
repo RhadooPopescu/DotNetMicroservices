@@ -24,7 +24,7 @@ namespace Market.API.Data
                 {
                     Id = "602d2149e773f2a3990b47f5",
                     Name = "Name",
-                    Category = "Category",
+                    Category = "Market Product",
                     Summary = "Summary",
                     Description = "Description",
                     ImageFile = "product-1.png",
@@ -34,7 +34,7 @@ namespace Market.API.Data
                 {
                     Id = "602d2149e773f2a3990b47f6",
                     Name = "Name",
-                    Category = "Category",
+                    Category = "Market Product",
                     Summary = "Summary",
                     Description = "Description",
                     ImageFile = "product-2.png",
@@ -44,7 +44,7 @@ namespace Market.API.Data
                 {
                     Id = "602d2149e773f2a3990b47f7",
                     Name = "Name",
-                    Category = "Category",
+                    Category = "Market Product",
                     Summary = "Summary",
                     Description = "Description",
                     ImageFile = "product-3.png",
@@ -54,7 +54,7 @@ namespace Market.API.Data
                 {
                     Id = "602d2149e773f2a3990b47f8",
                     Name = "Name",
-                    Category = "Category",
+                    Category = "Barter Product",
                     Summary = "Summary",
                     Description = "Description",
                     ImageFile = "product-4.png",
@@ -64,7 +64,7 @@ namespace Market.API.Data
                 {
                     Id = "602d2149e773f2a3990b47f9",
                     Name = "Name",
-                    Category = "Category",
+                    Category = "Giveaway Product",
                     Summary = "Summary",
                     Description = "Description",
                     ImageFile = "product-5.png",

@@ -10,7 +10,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a asp-page="Index">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                    <li class="breadcrumb-item active" aria-current="page">Basket</li>
                 </ol>
             </nav>
         </div>
@@ -36,21 +36,22 @@
 
                         @foreach (var cartItem in Model.Cart.Items)
                         {
-            <tr>
-                <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
-                <td>@cartItem.ProductName</td>
-                <td>In stock</td>
-                <td><input class="form-control" type="text" value="@cartItem.Quantity" /></td>
-                <td class="text-right">@(cartItem.Price * cartItem.Quantity) $</td>
-                <td class="text-right">
+                            <tr>
+                                <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
+                                <td>@cartItem.ProductName</td>
+                                <td>In stock</td>
+                                <td><input class="form-control" type="text" value="@cartItem.Quantity" /></td>
+                                <td class="text-right">@(cartItem.Price * cartItem.Quantity) $</td>
+                                <td class="text-right">
 
-                    <form asp-page-handler="removetocart" method="post">
-                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
-                        <input type="hidden" asp-for="@cartItem.ProductId" name="productId" />
-                    </form>
+                                    <form asp-page-handler="removetocart" method="post">
+                                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                        <input type="hidden" asp-for="@cartItem.ProductId" name="productId" />
+                                    </form>
 
-                </td>
-            </tr>}
+                                </td>
+                            </tr>
+                        }
 
                         <tr>
                             <td></td>
@@ -72,7 +73,7 @@
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
                     @*<button class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</button>*@
-                    <a asp-page="CheckOut" class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</a>
+                    <a asp-page="CheckOut" class="btn btn-lg btn-block btn-info text-uppercase">CheckOut</a>
                 </div>
             </div>
         </div>

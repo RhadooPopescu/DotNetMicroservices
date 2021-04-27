@@ -37,7 +37,6 @@
             <div class="card bg-light mb-3">
                 <div class="card-body">
                     <p class="price">@Model.Product.Price $</p>
-                    <p class="price_discounted">@(Model.Product.Price + 120) $</p>
                     <form asp-page-handler="AddToCart" method="post" name="addToCartForm" id="add_cart_form">
                         <div class="form-group">
                             <label>Quantity :</label>
@@ -56,30 +55,10 @@
                             </div>
                         </div>
                         <a href="javascript:;" onclick="parentNode.submit();" class="btn btn-success btn-lg btn-block text-uppercase">
-                            <i class="fa fa-shopping-cart"></i> Add To Cart
+                            <i class="fa fa-shopping-cart"></i> Add To Basket
                         </a>
                         <input type="hidden" asp-for="@Model.Product.Id" name="productId" />
                     </form>
-                    <div class="product_rassurance">
-                        <ul class="list-inline">
-                            <li class="list-inline-item"><i class="fa fa-truck fa-2x"></i><br />Fast delivery</li>
-                            <li class="list-inline-item"><i class="fa fa-credit-card fa-2x"></i><br />Secure payment</li>
-                            <li class="list-inline-item"><i class="fa fa-phone fa-2x"></i><br />+33 1 22 54 65 60</li>
-                        </ul>
-                    </div>
-                    <div class="reviews_product p-3 mb-2 ">
-                        3 reviews
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        (4/5)
-                        <a class="pull-right" href="#reviews">View all reviews</a>
-                    </div>
-                    <div class="datasheet p-3 mb-2 bg-info text-white">
-                        <a href="" class="text-white"><i class="fa fa-file-text"></i> Download DataSheet</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -89,7 +68,7 @@
         <!-- Description -->
         <div class="col-12">
             <div class="card border-light mb-3">
-                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-align-justify"></i> Description</div>
+                <div class="card-header bg-info text-white text-uppercase"><i class="fa fa-align-justify"></i> Description</div>
                 <div class="card-body">
                     <p class="card-text">
                         @Model.Product.Summary
