@@ -10,16 +10,17 @@ using System.Threading.Tasks;
 
 namespace Basket.API.Controllers
 {
+    //Using Microsoft AspNetCore.MVC Attributes, we are converting this class into an ApiController that inherits from the ControllerBase class.
     [ApiController]
     [Route("api/v1/[controller]")]
     public class BasketController : ControllerBase
     {
-        //fields
+        //Injecting the IBasketRepository,
         private readonly IBasketRepository repository;
         private readonly IMapper mapper;
         private readonly IPublishEndpoint publishEndpoint;
 
-        //constructor
+        //Constructor.
         public BasketController(IBasketRepository repository, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -30,16 +31,18 @@ namespace Basket.API.Controllers
 
 
 
-        //get basket method
+        //The following 3 methods should be implemented with async and await and use the Microsoft AspNetCore.MVC Attributes.
+        //Get basket method.
         [HttpGet("{userName}", Name = "GetBasket")]
         [ProducesResponseType(typeof(ShoppingBasket), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingBasket>> GetBasket(string userName)
         {
             ShoppingBasket basket = await repository.GetBasket(userName);
+            //if the basket value is null from redis database, we create a basket with a given username for the user.
             return Ok(basket ?? new ShoppingBasket(userName));
         }
 
-        //update basket method
+        //Update basket method.
         [HttpPost]
         [ProducesResponseType(typeof(ShoppingBasket), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingBasket>> UpdateBasket([FromBody] ShoppingBasket basket)
@@ -47,7 +50,7 @@ namespace Basket.API.Controllers
             return Ok(await repository.UpdateBasket(basket));
         }
 
-        //delete basket method
+        //Delete basket method for a given username.
         [HttpDelete("{userName}", Name = "DeleteBasket")]
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteBasket(string userName)
@@ -57,32 +60,29 @@ namespace Basket.API.Controllers
         }
 
 
-
+        //This method checks out the basket with the products and total price.
         [Route("[action]")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout)
         {
-            // get existing basket with total price            
-            // Set TotalPrice on basketCheckout eventMessage
-            // send checkout event to rabbitmq
-            // remove the basket
-
             string basketCheckoutUserName = basketCheckout.UserName;
-            // get existing basket with total price
+            //get existing basket for the given username.
             ShoppingBasket basket = await repository.GetBasket(basketCheckoutUserName);
             if (basket == null)
             {
                 return BadRequest();
             }
 
-            // send checkout event to rabbitmq
+            //set TotalPrice on basketCheckout eventMessage.
             BasketCheckoutEvent eventMessage = mapper.Map<BasketCheckoutEvent>(basketCheckout);
             eventMessage.TotalPrice = basket.TotalPrice;
+
+            //send checkout event to rabbitmq.
             await publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
 
-            // remove the basket
+            //remove the basket.
             string basketUserName = basket.UserName;
             await repository.DeleteBasket(basketUserName);
 

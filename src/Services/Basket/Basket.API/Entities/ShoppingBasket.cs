@@ -2,13 +2,14 @@
 
 namespace Basket.API.Entities
 {
+    //This class handles the items that are in the ShoppingBasket and calculates the total price of the basket.
     public class ShoppingBasket
     {
-        //properties
+        //Properties, this will be stored in the redis database.
         public string UserName { get; set; }
         public List<ShoppingBasketItem> Items { get; set; } = new List<ShoppingBasketItem>();
 
-        //constructors
+        //Constructors.
         public ShoppingBasket()
         {
         }
@@ -17,7 +18,7 @@ namespace Basket.API.Entities
             UserName = userName;    
         }
 
-        //this method calculates the total price of the items that are in the shopping-basket
+        //This property/method calculates the total price of the items that are in the shopping-basket.
         public decimal TotalPrice
         {
             get
