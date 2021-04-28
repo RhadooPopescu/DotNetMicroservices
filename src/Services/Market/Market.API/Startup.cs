@@ -28,6 +28,9 @@ namespace Market.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Market.API", Version = "v1" });
             });
 
+            //Registering the following services into the AspNet build in dependency injection.
+            //Basicly when ASP.NET aknowledges the IMarketContext and IProductRepository it will
+            //dynamically create a MarketContext and ProductRepository with using the build in dependency injection.
             services.AddScoped<IMarketContext, MarketContext>();
             services.AddScoped<IProductRepository, ProductRepository>();
         }

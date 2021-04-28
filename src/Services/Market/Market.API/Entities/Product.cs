@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Market.API.Entities
 {
+    //This the product entity class that stores product collections into mongodb.
     public class Product
     {
+        //Define the members of the product class. BsonId column will be generate from the mongodb as an 24 character ObjectId.
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id { get; set; }

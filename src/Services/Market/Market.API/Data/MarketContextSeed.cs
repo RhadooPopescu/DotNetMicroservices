@@ -5,10 +5,14 @@ using System.Linq;
 
 namespace Market.API.Data
 {
+    //This represents our Data Layer of our N layer architecture implementation structure.
+    //This class will populate the mongodb at application startup.
     public class MarketContextSeed
     {
+        //This method will seed the monngodb with the preconfigured products.
         public static void SeedData(IMongoCollection<Product> productCollection)
         {
+            //Check for existing product collection and insert data if no data exists.
             bool existProduct = productCollection.Find(p => true).Any();
             if (!existProduct) 
             {
@@ -16,6 +20,7 @@ namespace Market.API.Data
             }
         }
 
+        //This method provides the preconfigured seeding data.
         private static IEnumerable<Product> GetPreconfiguredProducts()
         {
             return new List<Product>()

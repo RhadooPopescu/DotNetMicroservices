@@ -7,6 +7,8 @@ using System.Linq;
 
 namespace Market.API.Repositories
 {
+    //This represents our Business Layer of our N layer architecture implementation structure.
+    //This interface represents an abstraction layer for the data operations.
     public interface IProductRepository
     {
         Task<IEnumerable<Product>> GetProducts();
