@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -38,20 +39,29 @@ namespace WebClient.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAddToCartAsync(string productId)
+        public async Task<IActionResult> OnPostAddToCartAsync(string productId, int quantity)
         {
             MarketModel product = await marketService.GetMarket(productId);
 
             string userName = "rdu";
             BasketModel basket = await basketService.GetBasket(userName);
 
-            basket.Items.Add(new BasketItemModel
+            try
             {
-                ProductId = productId,
-                ProductName = product.Name,
-                Price = product.Price,
-                Quantity = 1,
-            });
+                BasketItemModel existingItem = basket.Items.Single(x => x.ProductId == productId);
+                existingItem.Quantity += quantity;
+            }
+            catch (InvalidOperationException e)
+            {
+                basket.Items.Add(new BasketItemModel
+                {
+                    ProductId = productId,
+                    ProductName = product.Name,
+                    Price = product.Price,
+                    Quantity = quantity,
+                });
+                Console.WriteLine(e.Message);
+            }
 
             BasketModel basketUpdated = await basketService.UpdateBasket(basket);
 

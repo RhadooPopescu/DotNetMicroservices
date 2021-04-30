@@ -50,14 +50,22 @@ namespace WebClient.Pages
 
             string userName = "rdu";
             BasketModel basket = await basketService.GetBasket(userName);
-
-            basket.Items.Add(new BasketItemModel
+            try
             {
-                ProductId = productId,
-                ProductName = product.Name,
-                Price = product.Price,
-                Quantity = 1,
-            });
+                BasketItemModel existingItem = basket.Items.Single(x => x.ProductId == productId);
+                existingItem.Quantity += 1;
+            }
+            catch (InvalidOperationException e)
+            {
+                basket.Items.Add(new BasketItemModel
+                {
+                    ProductId = productId,
+                    ProductName = product.Name,
+                    Price = product.Price,
+                    Quantity = 1,
+                });
+                Console.WriteLine(e.Message);
+            }
 
             BasketModel basketUpdated = await basketService.UpdateBasket(basket);
 
