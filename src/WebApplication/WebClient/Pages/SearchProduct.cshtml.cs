@@ -32,7 +32,7 @@ namespace WebClient.Pages
                 List<MarketModel> filteredProductList = new List<MarketModel>();
                 foreach (var product in ProductList)
                 {
-                    if (product.Name.ToLower().Contains((searchKey).ToLower()))
+                    if (product.Name.ToLower().Contains((searchKey).ToLower()) || product.Category.ToLower().Contains((searchKey).ToLower()))
                     {
                         filteredProductList.Add(product);
                     }
