@@ -33,12 +33,12 @@
         <div>
             <h6 class="my-0">@item.ProductName</h6>
         </div>
-        <span class="text-muted">$@item.Price</span>
+        <span class="text-muted"> &#163;@item.Price</span>
     </li>}
 
                 <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (USD)</span>
-                    <strong>$@Model.Cart.TotalPrice</strong>
+                    <span>Total (POUNDS)</span>
+                    <strong> &#163;@Model.Cart.TotalPrice</strong>
                 </li>
             </ul>
         </div>
@@ -76,8 +76,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Order.EmailAddress" for="email">Email <span class="text-muted">(Optional)</span></label>
-                    <input asp-for="Order.EmailAddress" type="email" class="form-control" id="email" placeholder="you@example.com">
+                    <label asp-for="Order.EmailAddress" for="email">Email</label>
+                    <input asp-for="Order.EmailAddress" type="email" class="form-control" id="email" placeholder="email@example.com">
                     <div class="invalid-feedback">
                         Please enter a valid email address for shipping updates.
                     </div>
@@ -85,7 +85,7 @@
 
                 <div class="mb-3">
                     <label asp-for="Order.AddressLine" for="address">Address</label>
-                    <input asp-for="Order.AddressLine" type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+                    <input asp-for="Order.AddressLine" type="text" class="form-control" id="address" required>
                     <div class="invalid-feedback">
                         Please enter your shipping address.
                     </div>
@@ -93,7 +93,7 @@
 
                 <div class="mb-3">
                     <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                    <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+                    <input type="text" class="form-control" id="address2">
                 </div>
 
                 <div class="row">
@@ -101,7 +101,7 @@
                         <label asp-for="Order.Country" for="country">Country</label>
                         <select asp-for="Order.Country" class="custom-select d-block w-100" id="country" required>
                             <option value="">Choose...</option>
-                            <option>United States</option>
+                            <option>United Kingdom</option>
                         </select>
                         <div class="invalid-feedback">
                             Please select a valid country.
@@ -111,7 +111,7 @@
                         <label asp-for="Order.State" for="state">State</label>
                         <select asp-for="Order.State" class="custom-select d-block w-100" id="state" required>
                             <option value="">Choose...</option>
-                            <option>California</option>
+                            <option>London</option>
                         </select>
                         <div class="invalid-feedback">
                             Please provide a valid state.
@@ -167,7 +167,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <label asp-for="Order.Expiration" for="cc-expiration">Expiration</label>
+                        <label asp-for="Order.Expiration" for="cc-expiration">Expiration Date</label>
                         <input asp-for="Order.Expiration" type="text" class="form-control" id="cc-expiration" placeholder="" required>
                         <div class="invalid-feedback">
                             Expiration date required
@@ -194,13 +194,13 @@
             <div>
                 <h6 class="my-0">@item.ProductName</h6>
             </div>
-            <span class="text-muted">$@item.Price</span>
+            <span class="text-muted"> &#163;@item.Price</span>
         </li>
 }
 
                     <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (USD)</span>
-                        <strong>$@Model.Cart.TotalPrice</strong>
+                        <span>Total (POUNDS)</span>
+                        <strong> &#163;@Model.Cart.TotalPrice</strong>
                     </li>
                 </ul>
                 <button class="btn btn-info btn-lg btn-block" type="submit">Checkout Order</button>

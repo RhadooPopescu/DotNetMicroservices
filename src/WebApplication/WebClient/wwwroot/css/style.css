@@ -1,6 +1,19 @@
 /*
-** Style Simple Ecommerce Theme for Bootstrap 4
+** Style Bootstrap 
 */
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
 .bloc_left_price {
     color: #c01508;
     text-align: center;
@@ -22,12 +35,20 @@
 
 .add_to_cart_block .price {
     color: #c01508;
-    text-align: center;
+    text-align: left;
     font-weight: bold;
     font-size: 200%;
-    margin-bottom: 0;
+    margin-bottom: 30px;
 }
 
+.product-name {
+    font-weight: bold;
+    text-align: left;
+}
+
+.product-list .card {
+    margin-bottom: 30px;
+}
 
 
 .product_rassurance {
@@ -56,6 +77,7 @@
 footer {
     background: #343a40;
     padding: 5px;
+    margin-top: auto;
 }
 
 footer a {
@@ -80,4 +102,11 @@ footer a {
 
 .card-img-top:hover {
     transform: scale(1.1);
+}
+
+
+@media (min-width:1px) and (max-width:767px) {
+    .card {
+        margin-bottom: 30px !important;
+    }
 }

@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container product-list">
     <div class="row">
         <div class="col-12 col-sm-3">
             <div class="card bg-light mb-3">
@@ -39,7 +39,7 @@
                     <img asp-append-version="true" class="card-img-top" src="~/images/product/@Model.ProductList.LastOrDefault().ImageFile" />
                     <h5 class="card-title">@Model.ProductList.LastOrDefault().Name</h5>
                     <p class="card-text">@Model.ProductList.LastOrDefault().Summary</p>
-                    <p class="bloc_left_price">@Model.ProductList.LastOrDefault().Price $</p>
+                    <p class="bloc_left_price">@Model.ProductList.LastOrDefault().Price  &#163;</p>
                 </div>
             </div>
 
