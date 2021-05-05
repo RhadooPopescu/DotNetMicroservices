@@ -4,7 +4,8 @@ using EventBus.Messages.Events;
 
 namespace Basket.API.Mapper
 {
-    public  class BasketProfile : Profile
+    //This class is mapping between BasketCheckout objects and BasketCheckoutEvent for publishing the que into RabbitMq.
+    public class BasketProfile : Profile
     {
         public BasketProfile()
         {

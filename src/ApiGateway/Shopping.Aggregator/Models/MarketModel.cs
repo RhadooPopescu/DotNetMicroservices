@@ -1,5 +1,6 @@
 ﻿namespace Shopping.Aggregator.Models
 {
+    //This class should include the same properties as the Product class in the Market.API.
     public class MarketModel
     {
         public string Id { get; set; }

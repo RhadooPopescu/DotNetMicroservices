@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace WebClient.Pages
 {
+    //This is the error page for the application that logs erros in case they occur.
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class ErrorModel : PageModel
     {

@@ -8,11 +8,14 @@ using WebClient.Services;
 
 namespace WebClient.Pages
 {
+    //This class contains the methods that can be accessed from the product details page of the application.
     public class ProductDetailModel : PageModel
     {
+        //Injecting market and basket services.
         private readonly IMarketService marketService;
         private readonly IBasketService basketService;
 
+        //Constructor.
         public ProductDetailModel(IMarketService marketService, IBasketService basketService)
         {
             this.marketService = marketService ?? throw new ArgumentNullException(nameof(marketService));
@@ -24,6 +27,7 @@ namespace WebClient.Pages
         [BindProperty]
         public int Quantity { get; set; }
 
+        //Getting the requested product by productId.
         public async Task<IActionResult> OnGetAsync(string productId)
         {
             if (productId == null)
@@ -39,6 +43,8 @@ namespace WebClient.Pages
             return Page();
         }
 
+        //This method is adding products in the shopping basket from the market page.
+        //Checking if the product allready exist in the basket by productId and incrementing the value of the product.
         public async Task<IActionResult> OnPostAddToCartAsync(string productId, int quantity)
         {
             MarketModel product = await marketService.GetMarket(productId);

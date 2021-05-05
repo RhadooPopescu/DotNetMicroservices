@@ -82,7 +82,7 @@
         "Limit": 1
       }
     },
-    //Order API
+    //Ordering API
     {
       "DownstreamPathTemplate": "/api/v1/Order/{userName}",
       "DownstreamScheme": "http",

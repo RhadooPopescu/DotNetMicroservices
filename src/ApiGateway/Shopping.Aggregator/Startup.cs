@@ -27,6 +27,7 @@ namespace Shopping.Aggregator
         public void ConfigureServices(IServiceCollection services)
         {
 
+            //Type based http client factory registration configuration.
             services.AddHttpClient<IMarketService, MarketService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:MarketUrl"]));
 

@@ -15,7 +15,7 @@ namespace Basket.API.Controllers
     [Route("api/v1/[controller]")]
     public class BasketController : ControllerBase
     {
-        //Injecting the IBasketRepository,
+        //Injecting IBasketRepository, IMapper for mapping BasketCheckoutEvent, IPublishEndpoint masstransit for publishing messages to RabbitMq.
         private readonly IBasketRepository repository;
         private readonly IMapper mapper;
         private readonly IPublishEndpoint publishEndpoint;
@@ -60,7 +60,8 @@ namespace Basket.API.Controllers
         }
 
 
-        //This method checks out the basket with the products and total price.
+        //This method checks out the basket with the products and total price with sending a checkout event to RabbitMq,
+        //and removes the basket entity from redis cache.
         [Route("[action]")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
@@ -82,7 +83,7 @@ namespace Basket.API.Controllers
             //send checkout event to rabbitmq.
             await publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
 
-            //remove the basket.
+            //remove the basket entity from redis cache.
             string basketUserName = basket.UserName;
             await repository.DeleteBasket(basketUserName);
 

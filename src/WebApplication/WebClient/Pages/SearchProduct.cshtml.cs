@@ -9,12 +9,14 @@ using WebClient.Services;
 
 namespace WebClient.Pages
 {
+    //This class contains the methods that can be accessed from the search function of the application.
     public class SearchProductModel : PageModel
     {
+        //Injecting market and basket service.
         private readonly IMarketService marketService;
         private readonly IBasketService basketService;
         
-
+        //Constructor.
         public SearchProductModel(IMarketService marketService, IBasketService basketService)
         {
             this.marketService = marketService ?? throw new ArgumentNullException(nameof(marketService));
@@ -23,6 +25,7 @@ namespace WebClient.Pages
 
         public IEnumerable<MarketModel> ProductList { get; set; } = new List<MarketModel>();
 
+        //This method searches for products by name or category.
         public async Task<IActionResult> OnGetAsync(string searchKey)
         {
             
@@ -42,6 +45,8 @@ namespace WebClient.Pages
             return Page();
         }
 
+        //This method is adding products in the shopping basket from the market page.
+        //Checking if the product allready exist in the basket by productId and incrementing the value of the product.
         public async Task<IActionResult> OnPostAddToCartAsync(string productId)
         {
             MarketModel product = await marketService.GetMarket(productId);
