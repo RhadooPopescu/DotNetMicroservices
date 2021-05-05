@@ -4,7 +4,8 @@ using System.Linq;
 
 namespace Ordering.Domain.Common
 {
-    // Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
+    //Reference: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
+    //This class will implement the DomainDrivenDesign value objects, and will compare two object values not their references.
     public abstract class ValueObject
     {
         protected static bool EqualOperator(ValueObject left, ValueObject right)

@@ -9,8 +9,10 @@ using System;
 
 namespace Ordering.API.Extensions
 {
+    //This class performs the required actions in order to connect to MSSQL Server database.
     public static class HostExtensions
     {
+        //This method connects to the MSSQL Server database.
         public static IHost MigrateDatabase<TContext>(this IHost host, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
         {
             using (IServiceScope scope = host.Services.CreateScope())
@@ -26,7 +28,7 @@ namespace Ordering.API.Extensions
                     RetryPolicy retry = Policy.Handle<SqlException>()
                             .WaitAndRetry(
                                 retryCount: 5,
-                                sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), // 2,4,8,16,32 sc
+                                sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
                                 onRetry: (exception, retryCount, context) =>
                                 {
                                     logger.LogError($"Retry {retryCount} of {context.PolicyKey} at {context.OperationKey}, due to: {exception}.");
@@ -34,7 +36,7 @@ namespace Ordering.API.Extensions
 
                     //if the sql server container is not created on run docker compose this
                     //migration can't fail for network related exception. The retry options for DbContext only 
-                    //apply to transient exceptions                    
+                    //applies to transient exceptions.                   
                     retry.Execute(() => InvokeSeeder(seeder, context, services));
 
                     logger.LogInformation("Migrated database associated with context {DbContextName}", typeof(TContext).Name);
@@ -48,6 +50,7 @@ namespace Ordering.API.Extensions
             return host;
         }
 
+        //This method will create the database if it does not already exist, get the seeder object and populate the database with the data.
         private static void InvokeSeeder<TContext>(Action<TContext, IServiceProvider> seeder, TContext context, IServiceProvider services)
             where TContext : DbContext
         {

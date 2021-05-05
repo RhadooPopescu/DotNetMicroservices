@@ -27,11 +27,11 @@ namespace Ordering.API
             services.AddApplicationServices();
             services.AddInfrastructureServices(Configuration);
 
-            //general configuration
+            //General configuration
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<BasketCheckoutConsumer>();
 
-            // MassTransit-RabbitMQ Configuration
+            //MassTransit-RabbitMQ Configuration
             services.AddMassTransit(config => {
                 config.AddConsumer<BasketCheckoutConsumer>();
 

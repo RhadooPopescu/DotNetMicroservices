@@ -8,12 +8,16 @@ using System.Threading.Tasks;
 
 namespace Ordering.Infrastructure.Repositories
 {
+    //This class handles database related actions.
+    //This class retrieves the Order entity from the Ordering.Domain and handles the Order information for a given username.
     public class OrderRepository : RepositoryBase<Order>, IOrderRepository
     {
+        //Constructor with passing the OrderContext object into the base operation.
         public OrderRepository(OrderContext dbContext) : base(dbContext)
         {
         }
 
+        //This method will get orders by filtering the username.
         public async Task<IEnumerable<Order>> GetOrdersByUserName(string userName)
         {
             List<Order> orderList = await dbContext.Orders

@@ -4,11 +4,11 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
 {
     public class CheckoutOrderCommand : IRequest<int>
     {
-        //user details
+        //User details and price properties.
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }
 
-        // BillingAddress
+        //Billing address properties.
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
@@ -17,7 +17,7 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
         public string State { get; set; }
         public string ZipCode { get; set; }
 
-        // Payment
+        //Payment properties.
         public string CardName { get; set; }
         public string CardNumber { get; set; }
         public string Expiration { get; set; }

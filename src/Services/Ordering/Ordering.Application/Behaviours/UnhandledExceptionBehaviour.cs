@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Behaviours
 {
+    //This class manages the unhandled exceptions.
     public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
+        //Fields.
         private readonly ILogger<TRequest> logger;
 
+        //Constructor.
         public UnhandledExceptionBehaviour(ILogger<TRequest> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        //This method handles the unhandled exceptions, and logging the exceptions in the Logger class.
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             try

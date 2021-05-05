@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Ordering.Infrastructure.Migrations
 {
+    //This class was automatically generated from the EntityFrameworkCore
+    //by using the Add-Migration command in the Package Manager console.
     public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

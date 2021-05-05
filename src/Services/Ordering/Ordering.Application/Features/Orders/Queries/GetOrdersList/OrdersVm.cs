@@ -1,13 +1,14 @@
 ﻿namespace Ordering.Application.Features.Orders.Queries.GetOrdersList
 {
+    //This class represents our DTO object for transfering the information.
     public class OrdersVm
     {
-        //user details
+        //Order id, user details and total price properties.
         public int Id { get; set; }
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }
 
-        // BillingAddress
+        //Billing address properties.
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
@@ -16,7 +17,7 @@
         public string State { get; set; }
         public string ZipCode { get; set; }
 
-        // Payment
+        //Payment properties.
         public string CardName { get; set; }
         public string CardNumber { get; set; }
         public string Expiration { get; set; }
