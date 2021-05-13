@@ -6,6 +6,12 @@ using Ordering.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 namespace Ordering.API
 {
+    /**
+     * The architecture and implementation of the Ordering.API, Ordering.Application, Ordering.Domanin and Ordering.Infrastructure was 
+     * inspired by the following resources:
+     * https://github.com/jasontaylordev/CleanArchitecture
+     * https://www.youtube.com/watch?app=desktop&v=5OtUm1BLmG0mG0
+     **/
     public class Program
     {
         public static void Main(string[] args)
