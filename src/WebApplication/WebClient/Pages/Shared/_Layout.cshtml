@@ -43,7 +43,7 @@
 
                     <form class="form-inline my-2 my-lg-0">
                         <div class="input-group input-group-sm">
-                            <input type="text" name="searchKey" id="searchKey" class="form-control" placeholder="Search Product/Category..." >
+                            <input type="text" name="searchKey" id="searchKey" class="form-control" placeholder="Search Product/Category...">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-secondary" asp-area="" asp-page="/SearchProduct">
                                     <i class="fa fa-search"></i>
@@ -87,7 +87,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" type="text/javascript"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        //Plus & Minus for Quantity product
+        //Plus and minus for product quantity
         $(document).ready(function () {
             var quantity = 1;
 
@@ -107,15 +107,15 @@
 
         });
 
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        //JavaScript for disabling form submissions if there are invalid fields
         (function () {
             'use strict';
 
             window.addEventListener('load', function () {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                //Fetch all the forms we want to apply custom Bootstrap validation styles to
                 var forms = document.getElementsByClassName('needs-validation');
 
-                // Loop over them and prevent submission
+                //Loop over them and prevent submission
                 var validation = Array.prototype.filter.call(forms, function (form) {
                     form.addEventListener('submit', function (event) {
                         if (form.checkValidity() === false) {
@@ -130,7 +130,7 @@
 
     </script>
 
-    @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false) 
 </body>
 </html>
 
